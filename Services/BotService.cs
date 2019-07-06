@@ -4,13 +4,11 @@ namespace Telegram.Bot.Examples.DotNetCoreWebHook.Services
 {
     public class BotService : IBotService
     {
-        private readonly string botToken = Environment.GetEnvironmentVariable("BOT_ACCESS_TOKEN");
         public BotService()
         {
             try
             {
-                if(String.IsNullOrEmpty(botToken)) throw new Exception("Bot access token is empty.");
-                Client = new TelegramBotClient(botToken);
+                Client = new TelegramBotClient(Config.Env.BotAccessToken);
             }
             catch (Exception e)
             {

@@ -16,9 +16,7 @@ heroku config:set BOT_ACCESS_TOKEN=${BOT_ACCESS_TOKEN}
 ```
 
 ### Set Webhook
-```
-curl -X POST https://api.telegram.org/bot${BOT_ACCESS_TOKEN}/setWebhook?url=${DOTNETCORE_APP_NAME}.herokuapp.com/api/update
-```
+Copy env.sh.example to env.sh and modify the BOT_ACCESS_TOKEN(for localhost run) and WEBHOOK_URL
 
 ### Deploy
 ```
