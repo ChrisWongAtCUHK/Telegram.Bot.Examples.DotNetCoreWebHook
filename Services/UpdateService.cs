@@ -73,18 +73,24 @@ namespace Telegram.Bot.Examples.DotNetCoreWebHook.Services
 
                         // send a photo
                         case "/photo":
-                            await _botService.Client.SendChatActionAsync(message.Chat.Id, ChatAction.UploadPhoto);
-
-                            const string file = @"Files/tux.png";
-
-                            var fileName = file.Split(Path.DirectorySeparatorChar).Last();
-
-                            using (var fileStream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read))
+                            try
                             {
-                                await _botService.Client.SendPhotoAsync(
-                                    message.Chat.Id,
-                                    fileStream,
-                                    "Nice Picture");
+                                await _botService.Client.SendChatActionAsync(message.Chat.Id, ChatAction.UploadPhoto);
+
+                                const string file = @"Files/tux.png";
+
+                                using (var fileStream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read))
+                                {
+                                    await _botService.Client.SendPhotoAsync(
+                                        message.Chat.Id,
+                                        fileStream,
+                                        "Nice Picture");
+                                }
+                            }
+                            catch (System.Exception e)
+                            {
+                                _logger.LogInformation("Exception:{0}", e.Message);
+                                throw e;
                             }
                             break;
 
