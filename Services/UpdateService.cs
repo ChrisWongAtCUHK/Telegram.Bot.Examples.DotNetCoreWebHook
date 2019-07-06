@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Telegram.Bot.Args;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.InlineQueryResults;
@@ -17,6 +18,7 @@ namespace Telegram.Bot.Examples.DotNetCoreWebHook.Services
         public UpdateService(IBotService botService, ILogger<UpdateService> logger)
         {
             _botService = botService;
+            _botService.Client.OnCallbackQuery += BotOnCallbackQueryReceived;
             _logger = logger;
         }
 
@@ -31,8 +33,6 @@ namespace Telegram.Bot.Examples.DotNetCoreWebHook.Services
             if (message == null || message.Type != MessageType.Text) return;
 
             _logger.LogInformation("Received Message from {0}", message.Chat.Id);
-
-            if (message == null || message.Type != MessageType.Text) return;
 
             switch (message.Text.Split(' ').First())
             {
@@ -121,7 +121,19 @@ Usage:
                         replyMarkup: new ReplyKeyboardRemove());
                     break;
             }
+        }
 
+        private async void BotOnCallbackQueryReceived(object sender, CallbackQueryEventArgs callbackQueryEventArgs)
+        {
+            var callbackQuery = callbackQueryEventArgs.CallbackQuery;
+
+            await _botService.Client.AnswerCallbackQueryAsync(
+                callbackQuery.Id,
+                $"Received {callbackQuery.Data}");
+
+            await _botService.Client.SendTextMessageAsync(
+                callbackQuery.Message.Chat.Id,
+                $"Received {callbackQuery.Data}");
         }
     }
 }
