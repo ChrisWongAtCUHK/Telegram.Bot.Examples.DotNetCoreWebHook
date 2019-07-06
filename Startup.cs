@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.IO;
 using Telegram.Bot.Examples.DotNetCoreWebHook.Services;
 
 namespace Telegram.Bot.Examples.DotNetCoreWebHook
@@ -12,8 +14,21 @@ namespace Telegram.Bot.Examples.DotNetCoreWebHook
         {
             Configuration = configuration;
             var contentRoot = env.ContentRootPath;
-            System.Console.WriteLine("Startup==============================");
-            System.Console.WriteLine(contentRoot);
+            Console.WriteLine("Startup==============================");
+            // Get list of files in the specific directory.
+            // ... Please change the first argument.
+            string[] files = Directory.GetFiles(contentRoot,
+                "*.*",
+                SearchOption.AllDirectories);
+
+            // Display all the files.
+            foreach (string file in files)
+            {
+                if(!file.Contains(".git"))
+                {
+                    Console.WriteLine(file);
+                }
+            }
         }
 
         public IConfiguration Configuration { get; }
