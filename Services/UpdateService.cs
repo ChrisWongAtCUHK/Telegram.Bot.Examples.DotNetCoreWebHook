@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot.Types;
@@ -77,13 +78,13 @@ namespace Telegram.Bot.Examples.DotNetCoreWebHook.Services
                             {
                                 await _botService.Client.SendChatActionAsync(message.Chat.Id, ChatAction.UploadPhoto);
 
-                                const string file = @"Files/tux.png";
+                                var req = HttpWebRequest.Create("https://i.imgur.com/l8WqVDx.png");
 
-                                using (var fileStream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read))
+                                using(var stream = req.GetResponse().GetResponseStream())
                                 {
                                     await _botService.Client.SendPhotoAsync(
                                         message.Chat.Id,
-                                        fileStream,
+                                        stream,
                                         "Nice Picture");
                                 }
                             }
