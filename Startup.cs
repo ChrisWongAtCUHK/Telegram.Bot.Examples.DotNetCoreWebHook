@@ -17,7 +17,7 @@ namespace Telegram.Bot.Examples.DotNetCoreWebHook
             Console.WriteLine("Startup==============================");
             // Get list of files in the specific directory.
             // ... Please change the first argument.
-            string[] files = Directory.GetFiles(contentRoot,
+            string[] files = Directory.GetFiles("/app",
                 "*.*",
                 SearchOption.AllDirectories);
 
