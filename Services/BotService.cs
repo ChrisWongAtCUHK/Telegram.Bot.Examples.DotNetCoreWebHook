@@ -1,5 +1,3 @@
-using Microsoft.Extensions.Options;
-using MihaZupan;
 using System;
 
 namespace Telegram.Bot.Examples.DotNetCoreWebHook.Services
@@ -9,7 +7,15 @@ namespace Telegram.Bot.Examples.DotNetCoreWebHook.Services
         private readonly string botToken = Environment.GetEnvironmentVariable("BOT_ACCESS_TOKEN");
         public BotService()
         {
-            Client = new TelegramBotClient(botToken);
+            try
+            {
+                if(String.IsNullOrEmpty(botToken)) throw new Exception("Bot access token is empty.");
+                Client = new TelegramBotClient(botToken);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public TelegramBotClient Client { get; }
