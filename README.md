@@ -1,8 +1,8 @@
 # .NET Core Web Hook Example Heroku Deployment
 
 ## About
-[.NET Core Web Hook Example](https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Telegram.Bot.Examples.DotNetCoreWebHook)
-
+* [.NET Core Web Hook Example](https://github.com/TelegramBots/Telegram.Bot.Examples/tree/master/Telegram.Bot.Examples.DotNetCoreWebHook)
+* [Simple console application](https://github.com/TelegramBots/telegram.bot.examples/tree/master/Telegram.Bot.Examples.Echo)
 ## Setup
 This is an short description how you can deploy your bot on Heroku. The description presumes that you already:
 1. have a bot and it’s token. If not, please create one. You’ll find several explanations on the internet how to do this.
