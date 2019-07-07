@@ -17,6 +17,9 @@ heroku config:set BOT_ACCESS_TOKEN=${BOT_ACCESS_TOKEN}
 
 ### Set Webhook
 Copy env.sh.example to env.sh and modify the BOT_ACCESS_TOKEN(for localhost run) and WEBHOOK_URL
+```
+heroku config:set WEBHOOK_URL=${DOTNETCORE_APP_NAME}.herokuapp.com/api/update
+```
 
 ### Deploy
 ```
